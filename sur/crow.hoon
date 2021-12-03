@@ -12,20 +12,22 @@
 ::
 :: what cries your crow can make and where
 ::
-+$  caw  (jug rol (list content))
++$  caw  (jug act (list content))
 +$  sky  (jug resource rul)
 ::
 :: assorted types for use in other types
 ::
 +$  rol  @t
-+$  act  %tas
++$  act  @tas
 +$  rul  [rol act]
 ::
 ::  crow's actions
 ::
 +$  flap
-  $%  [%teach tag=@tas ack=(list content)]  :: train a new response
+  $%  [%teach =act ack=(list content)]      :: train a new response
+      [%scare =act ack=(list content)]      :: remove a response
       [%think res=resource =rul]            :: associate a string with a response
       [%steal res=resource =rul]            :: stop serving a resource w/ a tag
       [%treat ~]                            :: toggle nut
+  ==
 --
