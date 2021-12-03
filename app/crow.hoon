@@ -1,8 +1,8 @@
 ::
 :: crow
 ::
-/-  *crow
-/+  default-agent, dbug, resource
+/-  *crow, post, store=graph-store
+/+  default-agent, dbug, *resource
 ::
 |%
 +$  versioned-state
@@ -16,8 +16,9 @@
       =sky
   ==
 ::
-+$  card     card:agent:gall
-+$  eyre-id  @ta
++$  card      card:agent:gall
++$  content   content:post
++$  eyre-id   @ta
 --
 ::
 %-  agent:dbug
@@ -65,18 +66,17 @@
       `state(nut !nut)
     ::
         %think
+      =.  sky
+        (~(put ju sky) res rul)
       :_  state
       ^-  (list card)
       =/  wir=path
-        :+  (scot %tas 'resource')
-          (scot %da now.bowl)
-        (welp (en-path:resource entity.res name.res) ~[-.rul])
-      =/  pat=path
-      ~[%resource %ver %ship (scot %p entity.res) name.res (scot %ud 3)]
+        :-  (scot %tas 'update')
+        (welp (en-path entity.res name.res) ~[-.rul])
       :~  :*
         %pass   wir
-        %agent  [our.bowl %graph-push-hook]
-        %watch  pat
+        %agent  [our.bowl %graph-store]
+        %watch  [%updates ~]
       ==  ==
       ::~|  [`@tas`'!' %crow %need %rol]
       ::?>  !=('' rol.rul)
@@ -118,8 +118,107 @@
       `this
     ::
         %graph-update-3
-      ~&  >>>  !<(update +>.sign)
-      `this
+      =/  act=action  +:!<(update +>.sign)
+      =,  act
+      ~&  -.act
+      ~&  ?:(=(-.act %add-nodes) %.y %.n)
+      ?+    -.act  `this
+          %add-nodes
+        ?.  (~(has in ~(key by sky)) resource)
+          `this
+        =/  kez=(list (list atom))
+          ~(tap in ~(key by nodes))
+        =/  ruz=(set rul)  (~(get ju sky) resource)
+        ~&  >>  (malt ~(tap in ruz))
+        =/  roz=(set rol)
+          %+  roll
+            ~(tap in ruz)
+          |=  [=rul out=(set rol)]
+          (~(put in out) -.rul)
+        =/  coz=(list card)
+          *(list card)
+        ?~  kez
+          `this
+        ?.  =(1 (lent kez))
+          ~&  >>>  [%crow %ignore %flock]
+          `this
+        =/  pul=node
+          (~(got by nodes) i.kez)
+        =/  cal=(list content)
+          contents.+>+<.p.post.pul
+        =^  cards  state
+          |-
+          ?~  cal
+            [coz state]
+          ?+    -.i.cal  $(cal t.cal)
+              %text
+            =/  sound=(set rol)
+              %-  silt
+              %+  rash
+                +.i.cal
+              %+  ifix
+                [(star ace) (star ace)]
+              %+  more
+                (plus (mask " \0a"))
+              (cook crip (plus ;~(less (mask " \0a") next)))
+            =/  heard=(list rol)
+              ~(tap in (~(int in roz) sound))
+            ~&  heard
+            =.  coz
+              |-
+              ?~  heard
+                coz
+              %=    $
+                  heard
+                t.heard
+              ::
+                  coz
+                :: this card is hideous... :(
+                =+  ion=(~(got by (malt ~(tap in ruz))) i.heard)
+                ~&  >  ion
+                =+  can=(~(got by caw) ion)
+                ~&  >>  can
+                =+  rad=(~(rad og eny.bowl) (lent ~(tap in can)))
+                =+  wil=(snag rad ~(tap in can))
+                ~&  >>>  wil
+                =/  wir=path
+                  :-  'caw'
+                  ^-  path
+                  %+  weld
+                    (en-path entity.resource name.resource)
+                  [i.heard (scot %da now.bowl) ~]
+                =/  upd=update:store
+                  :-  now.bowl
+                  :+  %add-nodes
+                    resource
+                  %-  ~(put by *(map index:post node:store))
+                  :: an index-post (list of one)
+                  :-  ~[now.bowl]
+                  :: empty children
+                  :_  [%empty ~]
+                  ^-  maybe-post:store
+                  :: a post-type maybe-post
+                  :-  %&
+                  ^-  post:post
+                  :*  our.bowl
+                      ~[now.bowl]
+                      now.bowl
+                      wil
+                      ~
+                      ~
+                  ==
+                %+  welp  coz
+                :~  :*
+                  %pass   wir
+                  %agent  [our.bowl %graph-push-hook]
+                  %poke   %graph-update-3  !>(`update:store`upd)
+                ==  ==
+              ==
+            $(cal t.cal)
+          ==
+        ~&  cards
+        [cards this]
+      ==
     ==
   ==
 ::
