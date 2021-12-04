@@ -165,12 +165,17 @@
               ~(tap in (~(int in roz) sound))
             ~&  heard
             =.  coz
+              =+  and=10
               |-
               ?~  heard
                 coz
               %=    $
                   heard
                 t.heard
+              ::
+                  and
+                ~&  and
+                (add and 10)
               ::
                   coz
                 :: this card is hideous... :(
@@ -193,7 +198,7 @@
                     resource
                   %-  ~(put by *(map index:post node:store))
                   :: an index-post (list of one)
-                  :-  ~[now.bowl]
+                  :-  ~[(add now.bowl and)]
                   :: empty children
                   :_  [%empty ~]
                   ^-  maybe-post:store
@@ -201,22 +206,22 @@
                   :-  %&
                   ^-  post:post
                   :*  our.bowl
-                      ~[now.bowl]
+                      ~[(add now.bowl and)]
                       now.bowl
                       wil
                       ~
                       ~
                   ==
+                ~&  upd
                 %+  welp  coz
                 :~  :*
                   %pass   wir
-                  %agent  [our.bowl %graph-push-hook]
+                  %agent  [our.bowl %graph-store]
                   %poke   %graph-update-3  !>(`update:store`upd)
                 ==  ==
               ==
             $(cal t.cal)
           ==
-        ~&  cards
         [cards this]
       ==
     ==
