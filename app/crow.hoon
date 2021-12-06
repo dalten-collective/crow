@@ -35,7 +35,13 @@
 ++  on-init
   ^-  (quip card _this)
   ~&  >  [%crow %awake]
-  `this
+  :_  this
+  ^-  (list card)
+  :~  :*
+    %pass   `path`[%crow %brain ~]
+    %agent  [our.bowl %graph-store]
+    %watch  `path`[%updates ~]
+  ==  ==
 ::
 ++  on-save
   ^-  vase
@@ -47,7 +53,13 @@
   =/  old=versioned-state  !<(versioned-state ole)
   ?-    -.old
       %0
-    `this(state old)
+    :_  this(state old)
+      ^-  (list card)
+    :~  :*
+      %pass   `path`[%crow %brain ~]
+      %agent  [our.bowl %graph-store]
+      %watch  `path`[%updates ~]
+    ==  ==
   ==
 ::
 ++  on-poke
@@ -58,6 +70,24 @@
   =^  cards  state
     =,  vaz
     ?-    -.vaz
+        %steal
+      ~&  >>  [%crow %forgot `@tas`(scot %tas -.rul) +.rul]
+      =.  sky
+        (~(del ju sky) res rul)
+      `state   
+    ::
+        %teach
+      ~&  >  [%crow %learns act]
+      =.  caw
+        (~(put ju caw) act ack)
+      `state
+    ::
+        %scare
+      ~&  >  [%crow %forgot act]
+      =.  caw
+        (~(del ju caw) act ack)
+      `state
+    ::
         %treat
       ?.  nut
         ~&  >>>  [%crow %want %nut]
@@ -66,50 +96,42 @@
       `state(nut !nut)
     ::
         %think
+      ~|  [`@tas`'!' %crow %need %rol]
+      ?>  !=('' -.rul)
+      ?.  ?&  !(~(has ju sky) res rul)
+              (~(has in ~(key by caw)) +.rul)
+          ==
+        ~&  >>>  [`@tas`'!' %crow %need %teach]
+        `state
       =.  sky
         (~(put ju sky) res rul)
-      :_  state
-      ^-  (list card)
-      =/  wir=path
-        :-  (scot %tas 'update')
-        (welp (en-path entity.res name.res) ~[-.rul])
-      :~  :*
-        %pass   wir
-        %agent  [our.bowl %graph-store]
-        %watch  [%updates ~]
-      ==  ==
-      ::~|  [`@tas`'!' %crow %need %rol]
-      ::?>  !=('' rol.rul)
-      ::=?  sky
-      ::  !(~(has ju sky) res rul)
-      ::?: (~(has in ~(key by caw)) act.rul)
-      ::  (~(put ju sky) res rul)
-      ::  `state
-      ::~&  >>> [`@tas`'!' %crow %need %teach]
-    ::
-        %steal
-      =.  sky
-        (~(del ju sky) res rul)
-      `state
-    ::
-        %teach
-      =.  caw
-        (~(put ju caw) act ack)
-      `state
-    ::
-        %scare
-      =.  caw
-        (~(del ju caw) act ack)
+      ~&  >  [%crow %learn -.rul]
       `state
     ==
   [cards this]
 ::
 ++  on-agent
   |=  [=wire =sign:agent:gall]
-  ^-  (quip card _this)
-  ~&  wire
+  |^  ^-  (quip card _this)
   ?+    -.sign
-    ~&  sign
+    `this
+  ::
+      %kick
+    :_  this
+    ^-  (list card)
+    :~  :*
+      %pass   wire
+      %agent  [our.bowl %graph-store]
+      %watch  [%updates ~]
+    ==  ==
+  ::
+      %watch-ack
+    ?:  =(~ p.sign)
+      `this
+    ~&  >>>  [%nack %graph-store]
+    ~&  >>>  [%crow %flies %away]
+    =.  sky
+      *(jug resource rul)
     `this
   ::
       %fact
@@ -120,112 +142,124 @@
         %graph-update-3
       =/  act=action  +:!<(update +>.sign)
       =,  act
-      ~&  -.act
-      ~&  ?:(=(-.act %add-nodes) %.y %.n)
       ?+    -.act  `this
           %add-nodes
         ?.  (~(has in ~(key by sky)) resource)
           `this
+          ::
         =/  kez=(list (list atom))
           ~(tap in ~(key by nodes))
-        =/  ruz=(set rul)  (~(get ju sky) resource)
-        ~&  >>  (malt ~(tap in ruz))
-        =/  roz=(set rol)
-          %+  roll
-            ~(tap in ruz)
-          |=  [=rul out=(set rol)]
-          (~(put in out) -.rul)
-        =/  coz=(list card)
-          *(list card)
+        =+  :-  ruz=(savvy resource)
+            roz=(sense resource)
+        =+  coz=*(list card)
+        ::
         ?~  kez
           `this
+          ::
         ?.  =(1 (lent kez))
-          ~&  >>>  [%crow %ignore %flock]
+          ~&  >>  [%crow %ignores %flock]
           `this
-        =/  pul=node
+          ::
+        =/  nod=node
           (~(got by nodes) i.kez)
-        =/  cal=(list content)
-          contents.+>+<.p.post.pul
-        =^  cards  state
+        =/  con=(list content)
+          contents.+>+<.p.post.nod
+        =/  aut=@p
+          author.-.p.post.nod
+        ?:  (team:title our.bowl aut)
+          `this
+        =/  sat=(set rol)
+          =+  fun=*(set rol)
           |-
-          ?~  cal
-            [coz state]
-          ?+    -.i.cal  $(cal t.cal)
+          ?~  con
+            ^-  (set rol)
+            fun
+          ?+    -.i.con  $(con t.con)
               %text
-            =/  sound=(set rol)
+            %=    $
+                fun
               %-  silt
               %+  rash
-                +.i.cal
+                +.i.con
               %+  ifix
                 [(star ace) (star ace)]
               %+  more
                 (plus (mask " \0a"))
               (cook crip (plus ;~(less (mask " \0a") next)))
-            =/  heard=(list rol)
-              ~(tap in (~(int in roz) sound))
-            ~&  heard
-            =.  coz
-              =+  and=10
-              |-
-              ?~  heard
-                coz
-              %=    $
-                  heard
-                t.heard
-              ::
-                  and
-                ~&  and
-                (add and 10)
-              ::
-                  coz
-                :: this card is hideous... :(
-                =+  ion=(~(got by (malt ~(tap in ruz))) i.heard)
-                ~&  >  ion
-                =+  can=(~(got by caw) ion)
-                ~&  >>  can
-                =+  rad=(~(rad og eny.bowl) (lent ~(tap in can)))
-                =+  wil=(snag rad ~(tap in can))
-                ~&  >>>  wil
-                =/  wir=path
-                  :-  'caw'
-                  ^-  path
-                  %+  weld
-                    (en-path entity.resource name.resource)
-                  [i.heard (scot %da now.bowl) ~]
-                =/  upd=update:store
-                  :-  now.bowl
-                  :+  %add-nodes
-                    resource
-                  %-  ~(put by *(map index:post node:store))
-                  :: an index-post (list of one)
-                  :-  ~[(add now.bowl and)]
-                  :: empty children
-                  :_  [%empty ~]
-                  ^-  maybe-post:store
-                  :: a post-type maybe-post
-                  :-  %&
-                  ^-  post:post
-                  :*  our.bowl
-                      ~[(add now.bowl and)]
-                      now.bowl
-                      wil
-                      ~
-                      ~
-                  ==
-                ~&  upd
-                %+  welp  coz
-                :~  :*
-                  %pass   wir
-                  %agent  [our.bowl %graph-store]
-                  %poke   %graph-update-3  !>(`update:store`upd)
-                ==  ==
-              ==
-            $(cal t.cal)
+            ::
+                con
+              t.con
+            ==
           ==
-        [cards this]
+        =/  wat=(list rol)
+          ~(tap in (~(int in roz) sat))
+        =^  cards  state
+          =+  tic=100
+          |-
+          ?~  wat
+            [coz state]
+          =.  coz
+            =+  can=~(tap in (~(got by caw) (~(got by ruz) i.wat)))
+            =+  rad=(~(rad og eny.bowl) (lent can))
+            =+  wil=?.(=('.' i.wat) (snag rad can) [[%mention aut] (snag rad can)])
+            =+  wic=?:((team:title our.bowl entity.resource) %graph-store %graph-push-hook)
+            =+  %:  spake
+                  resource
+                  wil
+                  wic
+                  tic
+                ==
+            (welp coz -)
+          $(wat t.wat, tic (add tic 100))
+      [cards this]
       ==
     ==
   ==
+  ++  savvy
+    |=  res=resource
+    ^-  (map rol act)
+    (malt ~(tap in (~(get ju sky) res)))
+    ::
+  ++  sense
+    |=  res=resource
+    %+  roll
+      ~(tap in (~(get ju sky) res))
+    |=([=rul out=(set @t)] (~(put in out) -.rul))
+  ++  spake
+    |=  [res=resource wit=(list content) wic=@tas toc=@ud]
+    ^-  (list card)
+    =/  wir=path
+      :-  'caw'
+      ^-  path
+      %+  welp
+        (en-path entity.res name.res)
+      [wic (scot %da now.bowl) ~]
+    =/  upd=update:store
+      :-  (add now.bowl toc)
+      :+  %add-nodes
+        res
+      %-  ~(put by *(map index:post node:store))
+      :: an index-post (list of one)
+      :-  ~[(add now.bowl toc)]
+      :: empty children
+      :_  [%empty ~]
+      ^-  maybe-post:store
+      :: a post-type maybe-post
+      :-  %&
+      ^-  post:post
+      :*  our.bowl
+          ~[(add now.bowl toc)]
+          now.bowl
+          wit
+          ~
+          ~
+      ==
+    :~  :*
+      %pass   wir
+      %agent  [our.bowl wic]
+      %poke   %graph-update-3  !>(`update:store`upd)
+    ==  ==
+  --
 ::
 ++  on-watch  on-watch:def
 ::
