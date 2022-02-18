@@ -90,9 +90,14 @@
     ::
         %treat
       ?.  nut
-        ~&  >>>  [%crow %want %nut]
-        `state(nut !nut)
-      ~&  >  [%crow %see %nut]
+        ~&  >  [%crow %see %nut]
+        :_  state(nut !nut)
+        :~  :*
+          %pass   `path`[%crow %brain ~]
+          %agent  [our.bowl %graph-store]
+          %watch  `path`[%updates ~]
+        ==  ==
+      ~&  >>>  [%crow %want %nut]
       `state(nut !nut)
     ::
         %think
