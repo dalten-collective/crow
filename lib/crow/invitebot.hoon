@@ -32,25 +32,30 @@
     =-  `[%says me [%text -]~ !>(`(unit (set ship))``boss)]
     %-  ~(rep in boss)
     |=([a=@p b=@t] (rap 3 ~[(scot %p a) '\0a' b]))
-  ~&  >>  contents.post
+  ::
   ?.  ?=([[%text @] [%mention @] * ~] contents.post)
     ~&  >>>  [%exiting %structure %error ~]
     `[%keep me !>(`(unit (set ship))``boss)]
   ?~  comm=(slice +.i.contents.post)
     `[%keep me !>(`(unit (set ship))``boss)]
+  ::
   =+  coom=(sy u.comm)
   ?.  (~(has in coom) '!invitebot')
     `[%keep me !>(`(unit (set ship))``boss)]
+  ::
   ?:  (~(has in coom) '%delegate')
     =.  boss  (~(put in boss) +.i.t.contents.post)
     `[%keep me !>(`(unit (set ship))``boss)]
+  ::
   ?:  (~(has in coom) '%demote')
     =.  boss  (~(del in boss) +.i.t.contents.post)
     `[%keep me !>(`(unit (set ship))``boss)]
+  ::
   ?:  (~(has in coom) '%invite')
     =+  who=+.i.t.contents.post
     ~&  >>  "i'm inviting"
     (hello mind res post who)
+  ::
   `[%keep me !>(`(unit (set ship))``boss)]
   ++  slice
     |=  curd=cord
