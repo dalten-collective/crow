@@ -1,9 +1,9 @@
-:~
-  title+'crow'
-  info+'An urbit chatbot'
-  color+0x59.4d5b
-  version+[0 0 0]
-  website+'https://dalten.org/'
-  license+'Get Rekt'
-  site+/apps/crow
+:~  title+'crow'
+    info+'if crow then caw'
+    color+0x59.4d5b
+    site+/apps/crow
+    base+'crow'
+    version+[0 0 1]
+    website+'https://dalten.org/'
+    license+'Get Rekt'
 ==
