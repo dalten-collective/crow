@@ -1,9 +1,12 @@
-/-  *post, store=graph-store, mdst=metadata-store, *resource, *crow
-/+  default-agent, dbug
+/-  *post, store=graph-store, group=group-store, medal=metadata-store, *resource, *crow
+/+  default-agent, dbug, resource
 ::
 ::  import any libraries we have
 ::
 /~  feed  sneed:one  /lib/crow
+::
+::  type core
+::
 |%
 +$  versioned-state
   $%  [%1 state:one]
@@ -31,13 +34,11 @@
 ++  on-init
   ^-  (quip card _this)
   ~&  >  [%crow %awake ~]
+  =+  wir=[[%crow %brain %graph ~] [%crow %brain %group ~]]
   :_  this
-  ^-  (list card)
-  :~  :*
-    %pass   [%crow %brain ~]
-    %agent  [our.bowl %graph-store]
-    %watch  [%updates ~]
-  ==  ==
+  :~  [%pass +.wir %agent [our.bowl %group-store] %watch [%groups ~]]
+      [%pass -.wir %agent [our.bowl %graph-store] %watch [%updates ~]]
+  ==
 ::
 ++  on-save
   ^-  vase
@@ -50,7 +51,7 @@
   |-
   ?-    -.old
       %1
-    `this(state old)
+    [hear:make:cc this(state old)]
   ::
       %0
     %=    $
@@ -62,15 +63,15 @@
 ++  on-poke
   |=  [=mark =vase]
   ^-  (quip card _this)
+  ?>  =(our.bowl src.bowl)
   ?+    mark  (on-poke:def mark vase)
       %crow-flap
-    ?>  =(our.bowl src.bowl)
     =/      vaz  !<(flap vase)
     ?-    -.vaz
         %treat
-      ?.  seeds  ~&  >  [%crow %hav %nut ~]
+      ?.  seeds  %-  (slog leaf+"%crow-have-nut!" ~)
                  `this(seeds !seeds)
-      ~&  >>  [%crow %want %nut ~]
+      %-  (slog leaf+"%crow-want-nut!" ~)
       `this(seeds !seeds)
     ::
         %teach
@@ -78,22 +79,25 @@
       =/  bab=frens:one  ?~(who.vaz [%all ~] u.who.vaz)
       =/  nom=@tas
         ?.  (~(has by brain) nom.tit.vaz)  nom.tit.vaz
+        ~&  >>>  [%crow-name-overlap ~]
         |-
-        =+  suf=(shaw now.bowl 16 eny.bowl)
-        ?.  (~(has by brain) suf)  suf
+        =/  suf=@tas
+          %+  rap  3
+          ~[nom.tit.vaz '-' (scot %u (shaw now.bowl 16 eny.bowl))]
+        ?.  (~(has by brain) suf)
+          ~&  >  [%crow-name-replace suf]
+          suf
         $(eny.bowl +(eny.bowl))
-      ~&  >>>  [%crow %name %overlap ~]
-      ~&  >    [%crow %name %replace nom ~]
       ?-    -.tot
           %call
-        ~&  >  [%crow %learn %call nom ~]
+        %-  (slog leaf+"%crow-learn-call {<nom>}" ~)
         `this(brain (~(put by brain) nom [tit.vaz bab]))
       ::
           %mull
         ?.  (~(has by feed) nom)
-          ~&  >>>  [%crow %lost nom]
+          %-  (slog leaf+"%crow-cant-find {<nom>}" ~)
           `this
-        ~&  >  [%crow %learn %mull nom ~]
+        %-  (slog leaf+"%crow-learn-mull {<nom>}" ~)
         `this(brain (~(put by brain) nom [tit.vaz bab]))
       ::
           %haul
@@ -103,31 +107,31 @@
               %crow       nom      %hoon
           ==
         ?.  .^(? %cu fil)
-          ~&  >>>  [%crow %lost fil]
+          %-  (slog leaf+"%crow-lost-file {<fil>}" ~)
           `this
-        ~&  >  [%crow %learn %haul nom ~]
+        %-  (slog leaf+"%crow-learn-haul {<nom>}" ~)
         `this(brain (~(put by brain) nom [tit.vaz bab]))
       ==
     ::
         %pinch
       ?.  (~(has by brain) tails.vaz)
-        ~&  >>>  [%crow %stranger tails.vaz ~]
+        %-  (slog leaf+"%crow-ignores-you bad-tails {<tails.vaz>}" ~)
         `this
       =+  wuz=(~(got by brain) tails.vaz)
       =.  wuz  [-.wuz who.vaz]
-      ~&  >  [%crow %limits tails.vaz ~]
+      %-  (slog leaf+"%crow-limits {<tails.vaz>}" ~)
       `this(brain (~(put by brain) tails.vaz wuz))
     ::
         %scare
       ?.  (~(has by brain) tails.vaz)
-        ~&  >>>  [%crow %stranger tails.vaz ~]
+        %-  (slog leaf+"%crow-ignores-you bad-tails {<tails.vaz>}" ~)
         `this
-      ~&  >  [%crow %forget tails.vaz ~]
+      %-  (slog leaf+"%crow-forgot {<tails.vaz>}" ~)
       `this(brain (~(del by brain) tails.vaz))
     ::
         %reply
       ?.  (~(has by brain) tails.vaz)
-        ~&  >>>  [%crow %stranger tails.vaz ~]
+        %-  (slog leaf+"%crow-ignores-you bad-tails {<tails.vaz>}" ~)
         `this
       =+  wuz=(~(got by brain) tails.vaz)
       =/  tot=thots:one  -.wuz
@@ -140,35 +144,39 @@
             mok.tot
             slo.tot
         ==
-      ~&  >  [%crow %update %repertoire ~]
+      %-  (slog leaf+"%crow-updates-its-repertoire ~" ~)
       `this(brain (~(put by brain) tails.vaz wuz))
     ::
         %think
       ?.  ~(gaols muse:cc res.vaz)
-        ~&  >>>  [%crow %fear %storm ~]
+        %-  (slog leaf+"%crow-ignores-you bad-resource {<res.vaz>}" ~)
         `this
       ?.  (~(has by skies) res.vaz)
-        ~&  >  [%crow %watches res.vaz %for croak.vaz ~]
+        %-  (slog leaf+"%crow-watches {<res.vaz>}↔{<croak.vaz>}" ~)
         `this(skies (~(put ju skies) res.vaz [croak.vaz tails.vaz]))
-      ?.  %-  ~(any in (~(got by skies) res.vaz))
-          |=([c=croak t=tails] =(croak.vaz c))
-        ~&  >>>  [%crow %already %noes croak.vaz] 
-        ~&  >>>  [%steal %first ~]
+      ?:  %-  ~(any in (~(got by skies) res.vaz))
+          |=  [c=croak t=tails] 
+          |(=(croak.vaz c) =([-.croak.vaz ~] c))
+        %-  (slog leaf+"%crow-ignores-you overlap" ~)
         `this
-      ~&  >  [%crow %watches res.vaz %for croak.vaz ~]
+      ?:  %-  ~(any in (~(got by skies) res.vaz))
+          |=([c=croak t=tails] =([-.croak.vaz ~] c))
+        %-  (slog leaf+"%crow-ignores-you overlap" ~)
+        `this
+      %-  (slog leaf+"%crow-watches {<res.vaz>}↔{<croak.vaz>}" ~)
       `this(skies (~(put ju skies) res.vaz [croak.vaz tails.vaz]))
     ::
         %steal
       ?.  (~(has by skies) res.vaz)
-        ~&  >>>  [%crow %stranger res.vaz ~]
+        %-  (slog leaf+"%crow-ignores-you {<res.vaz>}-invalid-sky" ~)
         `this
       =/  pleth=(unit tails)
         =+  (~(got by skies) res.vaz)
         (~(get by (malt ~(tap in -))) croak.vaz)
       ?~  pleth
-        ~&  >>>  [%crow %stranger croak.vaz]
+        %-  (slog leaf+"%crow-ignores-you invalid-tails" ~)
         `this
-      ~&  >  [%crow %forgot croak.vaz %in res.vaz]
+      %-  (slog leaf+"%crow-forgot {<croak.vaz>}↔{<res.vaz>}" ~)
       `this(skies (~(del ju skies) res.vaz [croak.vaz u.pleth]))
     ==
   ==
@@ -176,24 +184,99 @@
   |=  [=wire =sign:agent:gall]
   ^-  (quip card _this)
   ?-    -.sign
-      %kick
-    ?.  =(wire [%crow %brain ~])
-      `this
-    :_  this
-    [%pass wire %agent [our.bowl %graph-store] %watch [%updates ~]]~
-  ::
-      %poke-ack
-    ?~  p.sign  `this  `this
-  ::
       %watch-ack
     ?:  =(~ p.sign)
       `this
-    ~&  >>>  [%nack %graph-store ~]
-    ~&  >>>  [%crow %flies %away ~]
+    ~&  >>>  [%crow %nack wire ~]
     `this(seeds %.n)
   ::
+      %poke-ack
+    ?+    -.wire  `this
+        %haul
+      ?~  p.sign  `this
+      ?.  ?=([%haul @ @ ~] wire)  `this
+      =.  works  (~(del in works) (slav %tas +<.wire))
+      %-  (slog leaf+"%crow-haul-failure {(scow %tas +<.wire)}" ~)
+      `this
+    ==
+  ::
+      %kick
+    ?+    wire  `this
+        [%crow %brain %graph ~]
+      :_  this
+      [%pass wire %agent [our.bowl %graph-store] %watch [%updates ~]]~
+    ::
+        [%crow %brain %group ~]
+      :_  this
+      [%pass wire %agent [our.bowl %group-store] %watch [%groups ~]]~
+    ::
+        [%haul @ @ ~]
+      =.  works  (~(del in works) (scot %tas +<.wire))
+      `this
+    ==
+  ::
       %fact
-    ?+    +<.sign  ~&  >>>  [%wat %meen ~]  `this
+    ?:  ?=([%haul @ @ ~] wire)
+      =+  me=(slav %tas +<.wire)
+      ?+    p.cage.sign  (on-agent:def wire sign)
+          %thread-fail
+        =/  error    !<((pair term tang) q.cage.sign)
+        =.  works  (~(del in works) me)
+        %-  (slog leaf+"%crow-haul-fail: {(trip p.error)}" q.error)
+        `this
+      ::
+          %thread-done
+        =/  loots=meme  !<(meme q.cage.sign)
+        =.  works  (~(del in works) me)
+        =^  cards  state
+          (read:cc loots)
+        [cards this]
+      ==
+    ?+    +<.sign  ~&  >>>  [%wat %meen +<.sign ~]  `this
+        %group-update-0
+      =/  upd=update:group  !<(update:group +>.sign)
+      =^  cards  state
+        ?+    -.upd  `state
+            %add-members
+          =-  =/  trig=(list resource)
+                %-  ~(rep by -)
+                |=  [[md=md-resource:medal *] out=(list resource)]
+                ?.(?=(%graph -.md) out [resource.+.md out])
+              =|  caz=(list card)
+              |-  
+              ?~  trig  [caz state]
+              ?.  (~(has by skies) i.trig)  $(trig t.trig)
+              =-  $(caz (weld -.- caz), state +.-, trig t.trig)
+              (~(savvy muse:cc i.trig) [%join ships.upd])
+          .^  associations:medal
+              %gx
+              ^-  path
+              %-  zing  %-  limo
+              :~  /(scot %p our.bowl)/metadata-store/(scot %da now.bowl)
+                  /group  (en-path:resource resource.upd)  /noun
+          ==  ==
+        ::
+            %remove-members
+          =-  =/  trig=(list resource)
+                %-  ~(rep by -)
+                |=  [[md=md-resource:medal *] out=(list resource)]
+                ?.(?=(%graph -.md) out [resource.+.md out])
+              =|  caz=(list card)
+              |-  
+              ?~  trig  [caz state]
+              ?.  (~(has by skies) i.trig)  $(trig t.trig)
+              =-  $(caz (weld -.- caz), state +.-, trig t.trig)
+              (~(savvy muse:cc i.trig) [%leave ships.upd])
+          .^  associations:medal
+              %gx
+              ^-  path
+              %-  zing  %-  limo
+              :~  /(scot %p our.bowl)/metadata-store/(scot %da now.bowl)
+                  /group  (en-path:resource resource.upd)  /noun
+          ==  ==
+        ==
+      [cards this]
+    ::
         %graph-update-3
       =/  upd=update:store  !<(update:store +>.sign)
       =/  act=action:store  +.upd
@@ -208,18 +291,60 @@
         =+  tam=(~(got by nodes.act) i.qui)
         ?.  ?=(%.y -.post.tam)  `this
         =^  cards  state
-          (~(savvy muse:cc resource.act) p.post.tam)
+          (~(savvy muse:cc resource.act) [%post p.post.tam])
         [cards this]
       ==
     ==
   ==
+++  on-arvo
+  |=  [=wire =sign-arvo]
+  ^-  (quip card _this)
+  ?.  ?=([%saf @ @ ~] wire)          (on-arvo:def wire sign-arvo)
+  ?.  ?=([%behn %wake *] sign-arvo)  (on-arvo:def wire sign-arvo)
+  ?^  error.sign-arvo                (on-arvo:def wire sign-arvo)
+  ::
+  `this(works (~(del in works) (slav %tas +<.wire)))
 ++  on-watch  on-watch:def
-++  on-arvo   on-arvo:def
 ++  on-peek   on-peek:def
 ++  on-leave  on-leave:def
 ++  on-fail   on-fail:def
 --
 |_  bol=bowl:gall
+++  meta
+  |=  me=@tas
+  ^-  (unit [thots:one frens:one])
+  ?.  (~(has by brain) me)  ~
+  `(~(got by brain) me)
+::
+++  helo
+  |=  [=res act=(each (list content:store) index:store)]
+  ^-  (list card)
+  =+  ?.  =(our.bol entity.res)
+        [tik=now.bol tok=%graph-push-hook]
+      [tik=(add now.bol ~s1) tok=%graph-store]
+  ?-  -.act
+      %.n
+    :~  :*
+      %pass   /crow/helo/(scot %da now.bol)
+      %agent  [entity.res tok]
+      %poke   %graph-update-3
+      !>  ^-  update:store
+      [now.bol %remove-posts res `(set index:store)`(sy ~[+.act])]
+    ==  ==
+  ::
+      %.y
+    =/  upd=update:store
+      :-  `time`tik  :+  %add-nodes  res
+      %-  ~(put by *(map index:store node:store))
+      :-  ~[`@`tik]  :_  [%empty ~]
+      [%& [our.bol ~[tik] now.bol `(list content:store)`+.act ~ ~]]
+    :~  :*
+      %pass   /crow/helo/(scot %da now.bol)
+      %agent  [entity.res tok]
+      %poke   %graph-update-3  !>(`update:store`upd)
+    ==  ==
+  ==
+::
 ++  make
   |%
   ++  mind
@@ -234,7 +359,62 @@
     %-  ~(rep in s)
     |=  [[t=@t a=@tas] out=skies:one]
     (~(put ju out) r [[%string `t] a])
+  ++  hear
+    =+  cards=*(list card)
+    ^-  (list card)
+    =?    cards
+        =+  (~(get by wex.bol) [/crow/brain/group our.bol %group-store])
+        ?~(- %.y !-.u.-)
+      =+  [%crow %brain %group ~]
+      %+  welp  cards
+      [%pass - %agent [our.bol %group-store] %watch [%groups ~]]~
+    ::
+    =?    cards
+        =+  (~(get by wex.bol) [/crow/brain/graph our.bol %graph-store])
+        ?~(- %.y !-.u.-)
+      =+  [%crow %brain %graph ~]
+      %+  welp  cards
+      [%pass - %agent [our.bol %graph-store] %watch [%updates ~]]~
+    ::
+    cards
   --
+::
+++  read
+  |=  vaz=meme
+  ^-  (quip card _state)
+  ?~  meta=(meta tails.vaz)
+    ?-  -.vaz
+      %keep  %-  (slog leaf+"%crow-wont-keep {<tails.vaz>}" ~)
+             `state
+    ::
+      %says  %-  (slog leaf+"%crow-wont-says {<tails.vaz>}" ~)
+             `state
+    ::
+      %dead  %-  (slog leaf+"%crow-got-bad-dead {<tails.vaz>}" ~)
+             `state
+    ==
+  ::
+  =/  ear=[t=thots:one f=frens:one]  u.meta
+  =+  ent=`thots:one`t.ear
+  ?-    -.vaz
+      %dead
+    ?>  ?=(%haul -.ent)
+    =.  works  (~(del in works) tails.vaz)
+    `state(brain (~(put by brain) tails.vaz [ent(nog !>(~)) f.ear]))
+  ::
+      %keep
+    ?>  ?=(%haul -.ent)
+    =.  works  (~(del in works) tails.vaz)
+    `state(brain (~(put by brain) tails.vaz [ent(nog bak.vaz) f.ear]))
+  ::
+      %says
+    ?>  ?=(%haul -.ent)
+    =.  works  (~(del in works) tails.vaz)
+    ::
+    =.  brain
+      (~(put by brain) tails.vaz [ent(nog bak.vaz) f.ear])
+    [(helo res.vaz [%.y wat.vaz]) state]
+  ==
 ::
 ++  muse
   |_  r=res
@@ -245,11 +425,11 @@
     %-  sy
     ^-  (list resource)
     %-  %~  rep  by
-        =-  .^(associations:mdst %gx -)
+        =-  .^(associations:medal %gx -)
         :~  (scot %p our.bol)   %metadata-store
             (scot %da now.bol)  %associations  %noun
         ==
-    |=  $:  [p=md-resource:mdst q=association:mdst]
+    |=  $:  [p=md-resource:medal q=association:medal]
             out=(list resource)
         ==
     ?.  ?=(%graph -.p)  out
@@ -276,75 +456,99 @@
       %who  (~(has in sep.fren) them)
       %wat  (~(has in ran.fren) (clan:title them))
     ==
-  ::    
+  ::
   ++  savvy
-    |=  =post
+    |=  =sadle
+    ^-  (quip card _state)
     |^
-    =-  [(zing -.-) +.-]
-    %-  sense  %-  silt  ^-  (list tails)
-    %-  zing  %+  roll  contents.post
-    |=  [con=content lil=(list (list tails))]
     =+  haz=~(has by mails)
     =+  gaz=~(got by mails)
     =+  ack=*(list tails)
+    =-  [(zing -.-) +.-]
+    %-  sense  %-  silt
+    ^-  (list tails)
+    %-  zing
+    ?-    -.sadle
+        %join
+      =?    ack
+          (haz [%sidles [%join ~]])
+        [(gaz [%sidles [%join ~]]) ack]
+      ?~(ack ~ [ack]~)
     ::
-    ?-    -.con
-        %text
-      ?:  (haz [%string ~])
-        [[(gaz [%string ~]) ack] lil]
-      =/  keywords=(unit (list @t))
-        %+  rush  +.con
-        %+  ifix  [(star ace) (star ace)]
-        %+  more  (plus (mask " \0a"))
-        (cook crip (plus ;~(less (mask " \0a") next)))
-      ?~  keywords
+        %leave
+      =?    ack
+          (haz [%sidles [%leave ~]])
+        [(gaz [%sidles [%leave ~]]) ack]
+      ?~(ack ~ [ack]~)
+    ::
+        %post
+      =,  sadle
+      %+  roll  contents.post
+      |=  [con=content lil=(list (list tails))]
+      ::
+      ?-    -.con
+          %text
+        ?:  (haz [%string ~])
+          [[(gaz [%string ~]) ack] lil]
+        ::
+        =/  oleth=(set cord)
+          =-  ?~(- *(set cord) (sy u.-))
+          %+  rush  +.con
+          %+  ifix  [(star ace) (star ace)]
+          %+  more  (plus (mask " \0a"))
+          (cook crip (plus ;~(less (mask " \0a") next)))
+        =/  shibb=(list cord)  ~(tap in oleth)
+        |-
+        ?~  shibb  [ack lil]
+        ?.  (~(has by wails) i.shibb)  $(shibb t.shibb)
+        =.  ack  [(~(got by wails) i.shibb) ack]
+        $(shibb t.shibb)
+      ::
+          %mention
+        =?    ack
+            (haz [%menchy ~])
+          [(gaz [%menchy ~]) ack]
+        ::
+        =?    ack
+            (haz [%menchy `ship.con])
+          [(gaz [%menchy `ship.con]) ack]
         [ack lil]
-      =+  riff=`(list @t)`u.keywords
-      |-
-      ?~  riff  [ack lil]
-      ?.  (~(has by wails) i.riff)  $(riff t.riff)
-      =.  ack  [(~(got by wails) i.riff) ack]
-      $(riff t.riff)
-    ::
-        %mention
-      =?    ack
-          (haz [%menchy ~])
-        [(gaz [%menchy ~]) ack]
-      =?    ack
-          (haz [%menchy `ship.con])
-        [(gaz [%menchy `ship.con]) ack]
-      [ack lil]
-    ::
-        %url
-      =?    ack
-          (haz [%curler ~])
-        [(gaz [%curler ~]) ack]
-      =?    ack
-          (haz [%curler `url.con])
-        [(gaz [%curler `url.con]) ack]
-      [ack lil]
-    ::
-        %code
-      =?    ack
-          (haz [%coders ~])
-        [(gaz [%coders ~]) ack]
-      =?    ack
-          (haz [%coders `[expression.con output.con]])
-        [(gaz [%coders `[expression.con output.con]]) ack]
-      [ack lil]
-    ::
-        %reference
-      =?    ack
-          (haz [%refers ~])
-        [(gaz [%refers ~]) ack]
-      =?    ack
-          (haz [%refers `reference.con])
-        [(gaz [%refers `reference.con]) ack]
-      [ack lil]
+      ::
+          %url
+        =?    ack
+            (haz [%curler ~])
+          [(gaz [%curler ~]) ack]
+        ::
+        =?    ack
+            (haz [%curler `url.con])
+          [(gaz [%curler `url.con]) ack]
+        [ack lil]
+      ::
+          %code
+        =?    ack
+            (haz [%coders ~])
+          [(gaz [%coders ~]) ack]
+        ::
+        =?    ack
+            (haz [%coders `[expression.con output.con]])
+          [(gaz [%coders `[expression.con output.con]]) ack]
+        [ack lil]
+      ::
+          %reference
+        =?    ack
+            (haz [%refers ~])
+          [(gaz [%refers ~]) ack]
+        ::
+        =?    ack
+            (haz [%refers `reference.con])
+          [(gaz [%refers `reference.con]) ack]
+        [ack lil]
+      ==
     ==
     ::
     ++  sense
       |=  sail=(set tails)
+      ^-  (quip (list card) _state)
       =+  lel=*(list (list card))
       =/  sel=(list [th=thots:one fr=frens:one])  
         %~  tap  in  
@@ -353,7 +557,9 @@
         |=(a=@tas (~(got by brain) a))
       |-
       ?~  sel  [lel state]
-      ?.  (flock fr.i.sel author.post)      $(sel t.sel)
+      ?:  ?.(?=(%post -.sadle) %.n !(flock fr.i.sel author.post.sadle))
+        $(sel t.sel)
+      ::
       ?-    -.th.i.sel
           %call
         ?.  =(1 ~(wyt in sail))             $(sel t.sel)
@@ -376,82 +582,106 @@
       =/  ear=[t=thots:one f=frens:one]  (~(got by brain) me)
       =+  ent=`thots:one`t.ear
       ?>  ?=(%mull -.ent)
-      ?.  (~(has by feed) me)  `state
+      ?.  (~(has by feed) me)   `state
+      ?:  (~(has in works) me)  `state
       =*  chuck  ~(. (~(got by feed) me) bol nog)
-      =+  `[l=(list card) =meme]`(seed:chuck me post r)
+      =+  `[l=(list card) =meme]`(seed:chuck me sadle r)
+      ::  slo-mo-control
+      =?    works
+          !?=(~ saf)
+        (~(put in works) me)
+      ::
+      =.  l
+        ?~  saf  l
+        :_  l
+        [%pass [%saf me (scot %da now.bol) ~] %arvo %b %wait (add u.saf now.bol)]
+      ::
       ?-    -.meme
           %dead
-        =.  brain
-          %+  ~(put by brain)  me
-          [ent(nog !>(~)) f.ear]
-        `state
+        `state(brain (~(put by brain) me [ent(nog !>(~)) f.ear]))
       ::
           %keep
-        =.  brain
-          %+  ~(put by brain)  me
-          [ent(nog bak.meme) f.ear]
-        [l state]
+        :-  l
+        state(brain (~(put by brain) me [ent(nog bak.meme) f.ear]))
       ::
           %says
-        =+  lat=(add now.bol ~s1)
-        =+  wir=[%sneer %sneed (scot %da now.bol) ~]
-        =/  wic=term
-          ?:(=(our.bol entity.r) %graph-store %graph-push-hook)
-        =/  upd=update:store
-          :-  lat
-          :+  %add-nodes  r
-          %-  ~(put by *(map index node))
-          :-  ~[lat]
-          :_  [%empty ~]
-          :-  %.y
-          [our.bol ~[lat] now.bol wat.meme ~ ~]
-        =.  brain
-          %+  ~(put by brain)  me
-          [ent(nog bak.meme) f.ear]
-        :_  state
-        %+  welp  l
-        [%pass wir %agent [our.bol wic] %poke %graph-update-3 !>(upd)]~
+        :-  (welp l (helo r [%.y wat.meme]))
+        state(brain (~(put by brain) me [ent(nog bak.meme) f.ear]))
       ==
     ::
     ++  snake
       |=  [me=@tas nog=vase saf=(unit @dr)]
       ^-  [(list card) _state]
       =/  tid=@ta
-        (cat 3 'crow_' (scot %uv (sham eny.bol)))
+        (cat 3 'crow_' (scot %da now.bol))
       =/  sip=[(unit @ta) (unit @ta) =beak =term =vase]
-        [~ `tid byk.bol me !>([me post r nog])]
+        [~ `tid byk.bol(r da+now.bol) (cat 3 %crow- me) !>([me sadle r nog])]
       =/  pat=path
-        /crow/(scot %tas me)/(scot %uv (sham eny.bol))
-      ::  todo - implement slo-mo
-      `state
-      :::_  state
-      ::[%pass pat %agent [our.bol %spider] %poke %spider-start !>(sip)]~
+        /haul/(scot %tas me)/(scot %da now.bol)
+      ::  slo-mo-control
+      =?    works
+          !?=(~ saf)
+        (~(put in works) me)
+      ::
+      =/  timer=(list card)
+        ?~  saf  *(list card)
+        [%pass [%saf me (scot %da now.bol) ~] %arvo %b %wait (add u.saf now.bol)]~
+      ::
+      :_  state
+      %+  welp  timer
+      :~  [%pass pat %agent [our.bol %spider] %watch /thread-result/[tid]]
+          [%pass pat %agent [our.bol %spider] %poke %spider-start !>(sip)]
+      ==
     ::
     ++  spake
       |=  [me=@tas vocab=(set (list content)) mok=? saf=(unit @dr)]
       ^-  [(list card) _state]
-      :: todo - implement slo-mo
-      ?:  =(our.bol author.post)  `state
+      ::
+      =/  timer=(list card)
+        ?~  saf  *(list card)
+        [%pass [%saf me (scot %da now.bol) ~] %arvo %b %wait (add u.saf now.bol)]~
+      =?    works
+          !?=(~ saf)
+        (~(put in works) me)
+      ::
       =+  bla=~(tap in vocab)
-      =+  doo=(snag (~(rad og eny.bol) (lent bla)) bla)
-      =?    doo
-          mok
-        [[%mention author.post] doo]
-      =+  lat=(add now.bol ~s1)
-      =+  wir=[%sneer %sneed (scot %da now.bol) ~]
-      =/  wic=term
-        ?:(=(our.bol entity.r) %graph-store %graph-push-hook)
-      =/  upd=update:store
-        :-  lat
-        :+  %add-nodes
-          r
-        %-  ~(put by *(map index node))
-        :-  ~[lat]
-        :_  [%empty ~]
-        :-  %.y
-        [our.bol ~[lat] now.bol doo ~ ~]
-      :_  state
-      [%pass wir %agent [our.bol wic] %poke %graph-update-3 !>(upd)]~
+      =/  moo  ~(. og eny.bol)
+      =|  loo=(list card)
+      ::
+      ?-    -.sadle
+          %join
+        =/  hoo=(list ship)  ~(tap in sip.sadle)
+        |-
+        ?~  hoo  [timer state]
+        =^  dat  moo  (rads:moo (lent bla))
+        =/  dis=(list content:store)  (snag dat bla)
+        =?    dis
+            mok
+          [[%mention i.hoo] dis]
+        $(timer (welp (helo r [%.y dis]) timer), hoo t.hoo)
+      ::
+          %leave
+        =/  hoo=(list ship)  ~(tap in sip.sadle)
+        |-
+        ::  shame the devil
+        ?~  hoo  [timer state]
+        =^  dat  moo  (rads:moo (lent bla))
+        =/  dis=(list content:store)  (snag dat bla)
+        =?    dis
+            mok
+          [[%mention i.hoo] dis]
+        $(timer (welp (helo r [%.y dis]) timer), hoo t.hoo)
+      ::
+          %post
+        ?:  =(our.bol author.post.sadle)  `state
+        ::  slo-mo-control
+        =^  dat  moo  (rads:moo (lent bla))
+        =/  dis=(list content:store)  (snag dat bla)
+        =?    dis
+            mok
+          [[%mention author.post.sadle] dis]
+        [(welp (helo r [%.y dis]) timer) state]
+      ==
     --
   --
 --

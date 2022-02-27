@@ -9,15 +9,21 @@
 ::::
 +$  res  resource
 +$  tails  @tas
-+$  croak  $%  [%string str=(unit cord)]
-               [%sidles =sidle]
++$  croak  $%  [%sidles =sidle]
+               [%string str=(unit cord)]
                [%curler url=(unit cord)]
                [%menchy sup=(unit ship)]
                [%refers ruf=(unit reference)]
                [%coders exo=(unit [cord (list tank)])]
            ==
+::
 +$  sidle  $%  [%join ~]
                [%leave ~]
+           ==
+::
++$  sadle  $%  [%join sip=(set ship)]
+               [%leave sip=(set ship)]
+               [%post =post]
            ==
 ::::
 ::  note:
@@ -36,10 +42,10 @@
 ::
 ::  poke actions:
 ::::
-+$  flap  $%  [%teach tit=thots:one who=(unit frens:one)] :: train a behavior
-              [%pinch =tails who=frens:one]                      :: restrict a behavior
-              [%scare =tails]                                    :: remove a behavior
-              [%reply =tails add=(list content)]                 :: add a reply to a %call
++$  flap  $%  [%teach tit=thots:one who=(unit frens:one)]  :: train a behavior
+              [%pinch =tails who=frens:one]                :: restrict a behavior
+              [%scare =tails]                              :: remove a behavior
+              [%reply =tails add=(list content)]           :: add a reply to a %call
             ::
               [%think =res =croak =tails]  :: associate a string with a response
               [%steal =res =croak]         :: stop serving a resource w/ a tag
@@ -49,7 +55,7 @@
 ::
 ::  %haul/%mull -> crow comms:
 ::::
-+$  meme  $%  [%says =tails wat=(list content) bak=vase]
++$  meme  $%  [%says =tails wat=(list content) =res bak=vase]
               [%keep =tails bak=vase]
               [%dead =tails bak=vase]
           ==
@@ -84,7 +90,7 @@
     $_  ^|
     |_  [bowl:gall vase]
     ++  seed
-      |~([me=@tas =post =res] [*(list card:agent:gall) *meme])
+      |~([me=@tas =sadle =res] [*(list card:agent:gall) *meme])
     --
   ::::
   ::    seeds - on-off

@@ -17,46 +17,61 @@
 ::
 |_  [bol=bowl:gall mynd=vase]
 ++  seed
-  |=  [me=@tas =post =res]
+  |=  [me=@tas =sadle =res]
   ^-  [(list card:agent:gall) meme]
-  =+  mind=!<((unit (set (list content))) mynd)
-  ?~  mind
-    =+  mem=[~ (sy [contents.post ~])]
-    `[%keep me !>(`(unit (set (list content)))`mem)]
-  |^  ^-  [(list card:agent:gall) meme]
-  ?.  =(our.bol entity.res)  `[%dead me !>(~)]
-  ::  secret reset command - only from us
-  ?:  ?&  =(our.bol author.post)
-          ?=([[%text @] ~] contents.post)
-      ==
-    ?:  =('!reset' ->.contents.post)
-      `[%dead me !>(~)]
-    `[%keep me mynd]
-  (beep contents.post)
+  ?+    -.sadle
+    =-  `[%says me - res mynd]
+    [%text 'I am not configured to ride non-`post` `sadle`s']~
   ::
-  ++  beep
-    |=  l=(list content)
-    ?.  (~(has in u.mind) l)
-      =.  mind  `(~(put in u.mind) contents.post)
-      `[%keep me !>(`(unit (set (list content)))`mind)]
-    (boop l)
-  ::
-  ++  boop
-    |=  l=(list content)
-    ^-  [(list card:agent:gall) meme]
-    ::~&  index.post
-    =/  dup=update
-      :-  (add now.bol ~s1)
-      [%remove-posts res (sy ~[index.post])] 
-    :_  :^    %says
-            me
-          ~[[%mention author.post] [%text ' fail!']]
-        !>(`(unit (set (list content)))`mind)
-    ^-  (list card:agent:gall)
-    :~  :*
-      %pass   /roboto/(scot %uv (sham eny.bol))
-      %agent  [our.bol %graph-store]
-      %poke   %graph-update-3  !>(dup)
-    ==  ==
-  -- 
+      %post
+    =+  mind=!<((unit (set (list content))) mynd)
+    ?~  mind
+      =+  mem=[~ (sy [contents.post.sadle ~])]
+      `[%keep me !>(`(unit (set (list content)))`mem)]
+    |^  ^-  [(list card:agent:gall) meme]
+    ?.  =(our.bol entity.res)  `[%dead me !>(~)]
+    ::  secret reset command - only from us
+    ?:  ?&  =(our.bol author.post.sadle)
+            ?=([[%text @] ~] contents.post.sadle)
+        ==
+      ?:  =('!reset' ->.contents.post.sadle)
+        `[%dead me !>(~)]
+      `[%keep me mynd]
+    (beep contents.post.sadle)
+    ::
+    ++  beep
+      |=  l=(list content)
+      ?.  (~(has in u.mind) l)
+        =.  mind  `(~(put in u.mind) contents.post.sadle)
+        `[%keep me !>(`(unit (set (list content)))`mind)]
+      (boop l)
+    ::
+    ++  boop
+      |=  l=(list content)
+      ^-  [(list card:agent:gall) meme]
+      :_  :*    %says  me
+                ~[[%mention author.post.sadle] [%text ' fail!']]
+                res  !>(`(unit (set (list content)))`mind)
+          ==
+      =+  tid=`@ta`(cat 3 'r9k_' (scot %da now.bol))
+      =/  dup=update:store
+        :-  (add now.bol ~s2)
+        :+  %remove-posts  res
+        (sy ~[index.post.sadle])
+      =/  cod=card:agent:gall
+        :*  %pass   /r9k/(scot %da now.bol)
+            %agent  [our.bol %graph-store]
+            %poke   %graph-update-3  !>(`update:store`dup)
+        ==
+      =/  sip=[(unit @ta) (unit @ta) =beak =term =vase]
+        :*  ~  `tid  byk.bol(r da+now.bol) 
+            %crow-delay-card  !>(`(unit card:agent:gall)`[~ cod])
+        ==
+      :~  :*
+        %pass   /r9k/(scot %da now.bol) 
+        %agent  [our.bol %spider]
+        %poke   %spider-start  !>(sip)
+      ==  ==
+    --
+  ==
 --
