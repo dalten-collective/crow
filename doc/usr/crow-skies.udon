@@ -1,0 +1,23 @@
+;>
+
+# state - skies
+
+## see
+
+- `:crow +dbug [%state %skies]` to see where `%crow` is listening, and for what.
+
+## shape
+
+- `skies` is a `(jug resource [croak tails])` meaning it is a map of `resource`s to `(set [croak tails])`.
+  - A `resource` is a `graph` object, like `[~rabsef-bicrym %buffhoonery]`.
+  - A `croak` is a stimulus for `%crow` to watch for - you'll learn more about those later.
+  - A `tails` is just a shorthand for what behavior to perform - it's in the form of a `@tas`.
+
+## use
+
+- `skies` can be directly interacted with using 2 pokes
+  - `:crow &crow-flap [%think <resource> <croak> <tails>]`
+    - Used to associate some stimulus (`croak`) with some effect (`tails`) within the domain of a `resource`.
+  - `:crow &crow-flap [%steal <resource> <croak>]`
+    - Used to disassociate the stimulus previously bound from the effect.
+

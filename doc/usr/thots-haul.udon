@@ -1,0 +1,24 @@
+;>
+
+# `%thots`
+ 
+A thots is one unit of `%crow`-power
+
+## `%haul`s
+
+A `%mull` is a thread of a generic type used by crow to deliver a service.
+
+## shape
+
+- `%haul`s are stored as a `[%haul nom=@tas nog=vase slo=(unit @dr)]`.
+  - `nog` is a vase containing the state of the haul, as defined in the haul. Check out the example threads included with this agent to see how you might construct one.
+  - `%haul`s should be of the type `(strand ,vase)` and should return a `!>(`meme`<meme>)` which `%crow` will automatically listen for
+- `%haul`s should expect an argument of `!>([@tas =sadle =resource =vase])
+  - `sadle`s are information given about the prompting event from `%crow` to the library or thread:
+    ```
+    +$  sadle  $%  [%join sip=(set ship)]
+                   [%leave sip=(set ship)]
+                   [%post =post]
+               ==
+    ```
+    

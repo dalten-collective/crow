@@ -1,0 +1,32 @@
+;>
+
+# `%thots`
+ 
+A thots is one unit of `%crow`-power
+
+## `%mull`s
+
+A `%mull` is a library of a specific type used by crow to deliver a service.
+
+## shape 
+
+- `%mull`s are stored as a `[%mull nom=@tas nog=vase slo=(unit @dr)]`.
+  - `nog` is a vase containing the state of the mull, as defined in the mull. Check out the example threads included with this agent to see how you might construct one.
+    - `%mull`s should be of the type `sneed` and must have an arm `seed`:
+      ```
+      +$  sneed
+        $_  ^|
+        |_  [bowl:gall vase]
+        ++  seed
+          |~([me=@tas =sadle =res] [*(list card:agent:gall) *meme])
+        --
+      ```
+      - `vase` in the `door`'s sample is the `nog` or `state` or `mynd` of the library.
+      - `sadle`s are information given about the prompting event from `%crow` to the library or thread:
+        ```
+        +$  sadle  $%  [%join sip=(set ship)]
+                       [%leave sip=(set ship)]
+                       [%post =post]
+                   ==
+        ```
+

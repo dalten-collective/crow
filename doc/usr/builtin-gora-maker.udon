@@ -1,0 +1,21 @@
+;>
+
+# gora-maker
+
+make a gora or give it to ships for joining a group
+
+## croaks
+
+- `[%string \`'!gora-maker']` for setup
+- `[%join ~]` for giving out gorae
+
+## use
+
+- set up a gora that you'll issue using either:
+  - '!gora-maker %make <name> <url>'
+  - '!gora-maker %give <gora-id>'
+  - wait for people to join the group!
+
+> Note: you should probably perform `:crow &crow-flap [%steal <resource> [%string \`'!gora-maker']]`
+  after first configuring this, as it will no longer be needed.
+

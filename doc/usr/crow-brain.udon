@@ -1,0 +1,28 @@
+;>
+
+# state - brain
+
+## see
+
+- `:crow +dbug [%state %brain]` to see what `%crow` knows how to do.
+
+## shape
+
+- `brain` is a `(map tails [thots frens])` meaning it is a map of a shorthand name to a behavior (`thots`) and a permission rule (`frens`).
+  - `%crow`s `thots` are `%call`s, `%mull`s or `%haul`s - you'll see these later.
+  - `%crow`s `frens` are everybody (`%all`), some people (`%who`), or some ranks (`%wat`).
+    > Note: You can bind the same behavior multiple times in crow, allowing multiple instances of it with different states. You may wonder how this works with `tails` which are usually just the name of the `%haul` or `%mull` - `%crow` automatically appends an integer to the end of a re-used `%haul` or `%mull` like `%gora-maker-123` and will notify you in the console if it has to do so.
+
+## use
+
+- `brain` can be directly interacted with using 4 pokes
+  - `:crow &crow-flap [%teach <thots> <(unit frens)>]`
+    - Used to train some behavior and permission it
+    - Null `frens` default to all
+  - `:crow &crow-flap [%pinch <tails> <frens>]`
+    - Used to train change the permissions on a known `thots`
+  - `:crow &crow-flap [%scare <tails>]`
+    - Used to forget some behavior
+  - `:crow &crow-flap [%reply <tails> <list content>]`
+    - Used to add a set of responses to a known `%call`, allowing it further flexibility
+

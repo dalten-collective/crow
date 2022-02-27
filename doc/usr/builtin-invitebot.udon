@@ -1,0 +1,21 @@
+;>
+
+# invitebot
+
+allows you to invite people by mentioning them in chat.
+
+## croak(s)
+
+- `[%string `'!invitebot']`
+  -or-
+- `[%string ~]`  (not recommended)
+
+## use
+
+- `!invitebot %delegate ~rabsef-bicrym` - grant ~rabsef invite authority
+- `!invitebot %demote ~rabsef-bicrym`   - deny ~rabsef invite authority
+- `!invitebot %invite ~rabsef-bicrym`   - invite ~rabsef
+- `!invitebot %list`                    - list delegates
+
+> Note: `%crow`'s host always has permission - also this only works on local groups, probably.
+

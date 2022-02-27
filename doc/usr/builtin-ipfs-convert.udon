@@ -1,0 +1,36 @@
+;>
+
+# ipfs-convert
+
+convert images posted to chat into links to ipfs version of same, posted to your own ipfs instance
+
+## croak(s)
+
+- do both of these to allow for configuration
+  ```
+  [%string \`'!ipfs-convert']
+   - and - 
+  [%curler ~]
+  ```
+  > Note: `[%steal [%string \`'!ipfs-convert']]` when ipfs-convert has been configured.
+
+#### - alternatively -
+
+- add using (create this in the dojo and assign it a face, replacing `<text>`s):
+  ```
+  :+  %teach
+    :+  %haul  %ipfs-convert
+    !>  ^-  (unit @t)
+    :-  ~  
+    %+  (cury cat 3)  'Basic '
+    %-  en:base64:mimes:html
+    (as-octs:mimes:html '<infura-username>:<infura-password>')
+  <(unit frens:one:crow)>
+  ```
+- and only croak `[%curler ~]`
+
+## use
+
+- post `!ipfs-convert %creds username:password` (to an infura ipfs instance) in your chat - adds credentials for uploading ipfs data to the 'state' of the thread which crow will maintain for future use
+- post an image in chat ending in a .png, .jpg (or .jpeg) or .gif
+

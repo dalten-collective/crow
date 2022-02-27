@@ -1,0 +1,59 @@
+;>
+
+# `%crow-flap` behavior
+
+All of `%crow`'s pokes are `&crow-flap` marks (for user actions).
+
+Each poke will therefore start with:
+```
+:crow &crow-flap
+```
+
+## on/off
+
+- `[%treat ~]`
+  - Used to turn `%crow` off and on.
+
+## brain
+
+- `[%teach tit=thots:one who=(unit frens:one)]`
+  - Used to train `%crow` to perform a new behavior, or re-add a behavior with a new state
+  - `tit=thots:one` is one of the following
+    - `[%call nom=@tas wat=(set (list content)) mok=? slo=(unit @dr)]`
+      > Note: mok is used to tag the poster who triggered `%crow` (or not)
+    - `[%haul nom=@tas nog=vase slo=(unit @dr)]`
+    - `[%mull nom=@tas nog=vase slo=(unit @dr)]`
+      > Note: nog is the state of the `%haul` or `%mull` - if your thread or library configures itself, just use `!>(~)`
+      > Note: always use the `nom` of the actual file. For instance, if your thread is at `/ted/crow/my-haul.hoon`, always use `%my-haul` for `nom`, even when duplicatively adding it. This applies to `%haul`s and `%mull`s.
+  - `who=(unit frens:one)`
+    - `[%all ~]` - Anyone can trigger this
+    - `[%who sep=(set ship)]` - Only these people can trigger this
+    - `[%wat ran=(set rank:title)]` - Only these types of people can trigger this
+    - Defaults to `[%all ~]` on null
+
+- `[%pinch =tails who=frens:one]`
+  - Used to change the permission state of a known `%call`, `%mull` or `%haul`
+  - `tails` is a @tas unique name the `thots`
+
+- `[%scare =tails]`
+  - Used to forget a known `%call`, `%mull` or `%haul`
+
+- `[%reply =tails add=(list content)]`
+  - Used to add a `(list content)` (of the `/sur/post/hoon` variety) to the set of possible responses in a given `%call`
+
+## skies
+
+- `[%think =res =croak =tails]`
+  - Used to associate a stimulus with a behavior in a domain (a `resource`)
+  - `croak` is one of the following
+    - `[%sidles ?([%join ~] [%leave ~])]` - when someone joins or leaves the group of the given resource
+    - `[%string str=(unit cord)]` - a specific denoted string or any wildcard string
+      > Note: Be careful with `[%string ~]` - you're sending crow a lot of activity in a busy group
+    - `[%curler url=(unit cord)]` - a specific denoted url or any wildcard url link
+    - `[%menchy sup=(unit ship)]` - a specific ship name or any wildcard ship name
+    - `[%refers ruf]` - a specific reference (graph, group, agent, etc.) or any wildcard reference
+    - `[%coders exo=(unit [cord (list tank)])]` - good luck w/ that...
+
+- `[%steal =res =croak]`
+  - Used to forget a stimulus associated w/ some behavior in a domain
+

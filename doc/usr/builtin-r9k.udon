@@ -1,0 +1,19 @@
+;>
+
+# r9k
+
+r9k applies a Robot9000-like filter to a chat (https://knowyourmeme.com/memes/sites/r9k)
+
+## croak
+
+- `[%string ~]`
+
+## use
+
+Messages posted to your r9k chat must be unique or they will be deleted and `%crow` will make fun of the poster.
+
+> Note: posting "!reset" as the host of crow/the resource, will reset the history of messages that have been said allowing reposts.
+
+> Note: r9k can only be applied to chats you own as it will attempt to delete messages that have previously been seen
+  
+

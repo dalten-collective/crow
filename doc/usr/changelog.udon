@@ -1,0 +1,17 @@
+;>
+
+##  0.0.2
+
+Date: ~2022.2.27
+
+- Add %haul and %mull Functionality
+- Add Built-Ins: r9k, invitebot, ipfs-convert, gora-maker
+- Add Docs (partially populated)
+
+##  0.0.1
+
+Date: ~2021.12.2
+
+- initial release
+- known bugs: error-on-subscription with graph-store
+

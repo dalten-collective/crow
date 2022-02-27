@@ -1,0 +1,29 @@
+;>
+
+# `%thots`
+ 
+A thots is one unit of `%crow`-power
+
+## `%call`s
+
+A `%call` is a set of possible responses to stimulus which `%crow` can deliver.
+
+## shape
+
+- `%call`s are stored as a `[%call nom=@tas wat=(set (list content)) mok=? slo=(unit @dr)]`.
+  - `wat` is a set of possible responses that the `%call` can make. A content, as defined in `/sur/post.hoon` is:
+    ```
+    +$  content
+      $%  [%text text=cord]
+          [%mention =ship]
+          [%url url=cord]
+          [%code expression=cord output=(list tank)]
+          [%reference =reference]
+      ==
+    ```
+    > Note: While you can add more possible responses to a `%call`, you can't remove existing ones, so make sure you like what you're doing or you'll have to recreate the whole thing.
+  - `mok` is a boolean - if it's set to `%.y`, it will automatically mention the ship that triggered `%crow` when it responds
+  - `slo` is a `(unit @dr)` - if it is null, `%crow` will trigger the response on every instance of the stimulus it's looking for, otherwise it will time itself out for the length of time denoted.
+
+Each time `%crow` is prompted to use a `%call`, it will randomly select one of the messages from the set of possible messages and write it to the chat, if it can. If it doesn't have permission to write to the chat, the message will be ignored, naturally.
+

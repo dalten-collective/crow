@@ -1,0 +1,30 @@
+;>
+
+# Overview
+
+The `%crow` agent is an early If This Then That system for Urbit.
+Focused primarily on interacting from graph-store (and groups), `%crow` allows you
+to create automatic text responses and compose libraries and threads of varying
+complexity that %crow can trigger based on a variety of user inputs.
+
+## workflow
+
+The workflow of crow looks something like this:
+
+```
+graph-store                   calls
+     |                          |
+     ├────────── crow ──────────┼ mulls
+     |                          |
+group-store                   hauls
+```
+
+## abilities
+
+`%crow`'s basic abilities include:
+- `%call` - A set of possible responses to the user based on a stimulus
+- `%mull` - A library designed to potentially take some state and return some effects.
+- `%haul` - A thread designed to potentially take some state, create some effects and potentially return its state to crow.
+
+Take a look at the changes that have occurred since you last used crow and then get started
+

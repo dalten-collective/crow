@@ -1,0 +1,8 @@
+;>
+
+# delay-card thread
+
+Simply takes a `(unit card:agent:gall)` as an argument and sends that card out .5 seconds later.
+
+This is useful, sometimes, for dealing with graph-store.
+

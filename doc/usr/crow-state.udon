@@ -1,0 +1,17 @@
+;>
+
+# `%crow`'s state
+
+## state:one
+
+- `%crow` has four state elements:
+  - `seeds` - a loobean as to whether `%crow` is enabled or not
+  - `skies` - a jug (map of `resource`↔`(set [croak tails])`)
+    - The `resource` is the domain where `%crow` will watch for input
+    - The `(set [croak tails])` is a unique list of stimuli↔effects `%crow` will perform
+  - `brain` - a map of `tails`↔`[thots frens]`
+    - A `tails` is a unique moniker for an action `%crow` knows
+    - A `thots` is the direct behavior of an action `%crow` knows
+    - A `frens` is permission structure for triggering actions `%crow` knows
+  - `works` - a set of `tails` that are currently in use or timed-out to prevent re-triggering
+

@@ -1,0 +1,19 @@
+;>
+
+# state - seeds
+
+##  see
+
+- `:crow +dbug [%state %seeds]` to check whether `%crow` is on.
+
+## shape
+
+- `?`
+
+## use
+
+- To turn `%crow` off or on, perform:
+  ```
+  :crow &crow-flap [%treat ~]
+  ```
+

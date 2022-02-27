@@ -1,0 +1,19 @@
+;>
+
+# state - works
+
+## see
+
+- `:crow +dbug [%state %works]` to see what's in the `works` - GET IT?
+
+## shape
+
+`works` is a `(set tails)` - it's employed when a `thots` is time limited and has recently been fired.
+
+## use
+
+- When a time limited `thots` is fired, it's `tails` goes in the `works` and a timer is set with `behn`
+- In the case of a `%call` or `%mull`, when the timer returns, and in the case of a `haul`, if a result is returned, the `tails` will be taken out of the `works`.
+
+`works` cannot be directly interacted with. It is only intended as spam prevention.
+
